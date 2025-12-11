@@ -8,10 +8,13 @@ export default function Formulaire() {
     prenom: '',
     email: '',
     adresse: '',
+    commune: '',
   });
+
   const [disponibilites, setDisponibilites] = useState([
     { jour: '', heureDebut: '', heureFin: '' }
   ]);
+
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,12 +56,12 @@ export default function Formulaire() {
 
       const result = await response.json();
       if (response.ok) {
-        setMessage('✅ Email envoyé avec succès !');
+        setMessage('Email envoyé avec succès !');
       } else {
-        setMessage(result.message || '❌ Une erreur est survenue.');
+        setMessage(result.message || 'Une erreur est survenue.');
       }
     } catch (error) {
-      setMessage('❌ Erreur réseau. Veuillez réessayer.');
+      setMessage('Erreur réseau. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +71,9 @@ export default function Formulaire() {
     <div style={styles.container}>
       <div style={styles.formContainer}>
         <h1 style={styles.title}>Formulaire de Disponibilités</h1>
+
         <form onSubmit={handleSubmit} style={styles.form}>
+          {/* NOM */}
           <div style={styles.formGroup}>
             <label style={styles.label}>Nom</label>
             <input
@@ -81,6 +86,8 @@ export default function Formulaire() {
               placeholder="Votre nom"
             />
           </div>
+
+          {/* PRENOM */}
           <div style={styles.formGroup}>
             <label style={styles.label}>Prénom</label>
             <input
@@ -93,6 +100,8 @@ export default function Formulaire() {
               placeholder="Votre prénom"
             />
           </div>
+
+          {/* EMAIL */}
           <div style={styles.formGroup}>
             <label style={styles.label}>Email</label>
             <input
@@ -105,6 +114,8 @@ export default function Formulaire() {
               placeholder="votre@email.com"
             />
           </div>
+
+          {/* ADRESSE */}
           <div style={styles.formGroup}>
             <label style={styles.label}>Adresse</label>
             <input
@@ -118,6 +129,21 @@ export default function Formulaire() {
             />
           </div>
 
+          {/* COMMUNE (NOUVEAU CHAMP) */}
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Commune</label>
+            <input
+              type="text"
+              name="commune"
+              value={formData.commune}
+              onChange={handleChange}
+              required
+              style={styles.input}
+              placeholder="Votre commune"
+            />
+          </div>
+
+          {/* DISPONIBILITES */}
           <div style={styles.sectionTitleContainer}>
             <h2 style={styles.sectionTitle}>Disponibilités</h2>
             <button
@@ -167,22 +193,18 @@ export default function Formulaire() {
             </div>
           ))}
 
+          {/* BOUTON SUBMIT */}
           <button
             type="submit"
             disabled={isLoading}
             style={isLoading ? { ...styles.submitButton, ...styles.disabledButton } : styles.submitButton}
           >
-            {isLoading ? (
-              <>
-                <span className="loader"></span> Envoi...
-              </>
-            ) : (
-              'Valider'
-            )}
+            {isLoading ? "Envoi..." : "Valider"}
           </button>
 
+          {/* MESSAGE DE RETOUR */}
           {message && (
-            <p style={message.includes('✅') ? styles.successMessage : styles.errorMessage}>
+            <p style={message.includes('succès') ? styles.successMessage : styles.errorMessage}>
               {message}
             </p>
           )}
@@ -192,7 +214,9 @@ export default function Formulaire() {
   );
 }
 
-// Styles en mode sombre
+//
+// STYLES
+//
 const styles = {
   container: {
     minHeight: '100vh',
@@ -202,7 +226,6 @@ const styles = {
     backgroundColor: '#121212',
     color: '#e0e0e0',
     padding: '20px',
-    fontFamily: '"Segoe UI", Roboto, "Helvetica Neue", sans-serif',
   },
   formContainer: {
     width: '100%',
@@ -210,7 +233,7 @@ const styles = {
     backgroundColor: '#1e1e1e',
     borderRadius: '12px',
     padding: '30px',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
     border: '1px solid #333',
   },
   title: {
@@ -242,20 +265,16 @@ const styles = {
     border: '1px solid #444',
     color: '#e0e0e0',
     fontSize: '16px',
-    transition: 'border-color 0.3s, background-color 0.3s',
-    outline: 'none',
   },
   sectionTitleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '10px',
   },
   sectionTitle: {
     color: '#bb86fc',
     fontSize: '18px',
     fontWeight: '600',
-    margin: '0',
   },
   addButton: {
     backgroundColor: '#bb86fc',
@@ -265,7 +284,6 @@ const styles = {
     borderRadius: '6px',
     fontWeight: '600',
     cursor: 'pointer',
-    transition: 'background-color 0.3s',
   },
   dispoGroup: {
     display: 'flex',
@@ -278,7 +296,6 @@ const styles = {
     backgroundColor: '#2d2d2d',
     border: '1px solid #444',
     color: '#e0e0e0',
-    fontSize: '14px',
     flex: '1',
   },
   removeButton: {
@@ -290,10 +307,6 @@ const styles = {
     borderRadius: '50%',
     cursor: 'pointer',
     fontSize: '18px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    transition: 'background-color 0.3s',
   },
   submitButton: {
     padding: '14px',
@@ -304,28 +317,19 @@ const styles = {
     fontSize: '16px',
     fontWeight: '600',
     cursor: 'pointer',
-    transition: 'background-color 0.3s, transform 0.2s',
-    marginTop: '10px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '8px',
   },
   disabledButton: {
-    backgroundColor: '#6200ee',
+    opacity: 0.7,
     cursor: 'not-allowed',
-    opacity: 0.8,
   },
   successMessage: {
     color: '#4caf50',
     textAlign: 'center' as const,
-    fontWeight: '500',
     marginTop: '15px',
   },
   errorMessage: {
     color: '#ff5252',
     textAlign: 'center' as const,
-    fontWeight: '500',
     marginTop: '15px',
   },
 };
