@@ -5,10 +5,12 @@ export async function POST(request: Request) {
   const { formData, disponibilites } = await request.json();
 
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.EMAIL_USER,    // ton_email@gmail.com
-      pass: process.env.EMAIL_PASSWORD, // ton App Password
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
@@ -19,16 +21,18 @@ export async function POST(request: Request) {
     .join('\n');
 
   const mailOptions = {
-    from: `"${formData.prenom} ${formData.nom}" <${formData.email}>`,
-    to: process.env.EMAIL_DEST, // email destinataire,
-    subject: `Nouvelle soumission de formulaire`,
+    from: `"${formData.prenom} ${formData.nom}" <${process.env.EMAIL_USER}>`,
+    replyTo: formData.email,
+    to: process.env.EMAIL_DEST,
+    subject: "Nouvelle soumission de formulaire",
     text: `
-      Nom : ${formData.nom} ${formData.prenom}
-      Email : ${formData.email}
-      Adresse : ${formData.adresse}
+Nom : ${formData.nom} ${formData.prenom}
+Email : ${formData.email}
+Adresse : ${formData.adresse}
+Commune : ${formData.commune}
 
-      Disponibilités :
-      ${disponibilitesTexte}
+Disponibilités :
+${disponibilitesTexte}
     `,
   };
 
@@ -38,7 +42,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Erreur Nodemailer :', error);
     return NextResponse.json(
-      { message: 'Erreur lors de l\'envoi de l\'email. Vérifie tes identifiants SMTP.' },
+      { message: "Erreur lors de l'envoi de l'email. Vérifiez la configuration SMTP." },
       { status: 500 }
     );
   }
