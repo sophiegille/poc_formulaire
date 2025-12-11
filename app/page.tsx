@@ -314,7 +314,7 @@ const styles = {
   disabledButton: {
     backgroundColor: '#6200ee',
     cursor: 'not-allowed',
-    opacity: 0.7,
+    opacity: 0.8,
   },
   successMessage: {
     color: '#4caf50',
