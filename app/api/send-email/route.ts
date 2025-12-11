@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
   const mailOptions = {
     from: `"${formData.prenom} ${formData.nom}" <${formData.email}>`,
-    to: 'sophie.gille@insee.fr',
+    to: process.env.EMAIL_DEST, // email destinataire,
     subject: `Nouvelle soumission de formulaire`,
     text: `
       Nom : ${formData.nom} ${formData.prenom}
