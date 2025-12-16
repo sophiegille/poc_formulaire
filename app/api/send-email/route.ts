@@ -1,8 +1,22 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   const { formData, disponibilites } = await request.json();
+
+  if (
+    !formData.reference ||
+    !formData.nom ||
+    !formData.email ||
+    !formData.telephone ||
+    !formData.adresse ||
+    !formData.commune
+  ) {
+    return NextResponse.json(
+      { message: "Champs obligatoires manquants." },
+      { status: 400 }
+    );
+  }
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -14,11 +28,20 @@ export async function POST(request: Request) {
     },
   });
 
-  const disponibilitesTexte = disponibilites
-    .map((dispo: { jour: string; heureDebut: string; heureFin: string }) =>
-      `${dispo.jour} de ${dispo.heureDebut} à ${dispo.heureFin}`
-    )
-    .join('\n');
+  const disponibilitesValides = disponibilites.filter(
+    (d: { jour: string; heureDebut: string }) =>
+      d.jour && d.heureDebut
+  );
+
+  const disponibilitesTexte =
+    disponibilitesValides.length > 0
+      ? disponibilitesValides
+          .map(
+            (d: { jour: string; heureDebut: string }) =>
+              `${d.jour} à partir de ${d.heureDebut}`
+          )
+          .join("\n")
+      : "Aucune disponibilité renseignée";
 
   const mailOptions = {
     from: `"${formData.prenom} ${formData.nom}" <${process.env.EMAIL_USER}>`,
@@ -26,8 +49,11 @@ export async function POST(request: Request) {
     to: process.env.EMAIL_DEST,
     subject: "Nouvelle soumission de formulaire",
     text: `
+Référence : ${formData.reference}
+
 Nom : ${formData.nom} ${formData.prenom}
 Email : ${formData.email}
+Téléphone : ${formData.telephone}
 Adresse : ${formData.adresse}
 Commune : ${formData.commune}
 
@@ -38,11 +64,11 @@ ${disponibilitesTexte}
 
   try {
     await transporter.sendMail(mailOptions);
-    return NextResponse.json({ message: 'Email envoyé avec succès !' });
+    return NextResponse.json({ message: "Email envoyé avec succès !" });
   } catch (error) {
-    console.error('Erreur Nodemailer :', error);
+    console.error("Erreur Nodemailer :", error);
     return NextResponse.json(
-      { message: "Erreur lors de l'envoi de l'email. Vérifiez la configuration SMTP." },
+      { message: "Erreur lors de l'envoi de l'email." },
       { status: 500 }
     );
   }
