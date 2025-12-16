@@ -76,12 +76,13 @@ export default function Formulaire() {
   return (
     <div style={styles.container}>
       <div style={styles.formContainer}>
-        <h1 style={styles.title}>Formulaire de disponibilités</h1>
+        <h1 style={styles.title}>Formulaire de contact</h1>
 
         <form onSubmit={handleSubmit} style={styles.form}>
           {/* RÉFÉRENCE */}
           <div style={styles.formGroup}>
-            <label style={styles.label}>Référence</label>
+            <label style={{ ...styles.label, fontWeight: "700" }}>
+  Référence de l’enquête</label>
             <input
               type="text"
               name="reference"
