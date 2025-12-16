@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Formulaire() {
   const [formData, setFormData] = useState({
@@ -76,13 +77,26 @@ export default function Formulaire() {
   return (
     <div style={styles.container}>
       <div style={styles.formContainer}>
+        {/* LOGO INSEE */}
+        <div style={styles.logoContainer}>
+          <Image
+            src="/LOGOS_GUYANE_SIGNATURE_RVB.png"
+            alt="INSEE Antilles-Guyane"
+            width={180}
+            height={60}
+            priority
+          />
+        </div>
+
+        {/* TITRE FORMULAIRE */}
         <h1 style={styles.title}>Formulaire de contact</h1>
 
         <form onSubmit={handleSubmit} style={styles.form}>
-          {/* RÉFÉRENCE */}
+          {/* RÉFÉRENCE DE L’ENQUÊTE */}
           <div style={styles.formGroup}>
             <label style={{ ...styles.label, fontWeight: "700" }}>
-  Référence de l’enquête</label>
+              Référence de l’enquête
+            </label>
             <input
               type="text"
               name="reference"
@@ -247,7 +261,7 @@ export default function Formulaire() {
   );
 }
 
-/* STYLES */
+// ===================== STYLES =====================
 const styles = {
   container: {
     minHeight: "100vh",
@@ -265,6 +279,12 @@ const styles = {
     borderRadius: "6px",
     padding: "32px",
     border: "1px solid #D0D5DD",
+  },
+
+  logoContainer: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "20px",
   },
 
   title: {
