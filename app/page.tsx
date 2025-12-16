@@ -253,103 +253,128 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#121212",
+    backgroundColor: "#F4F6F8",
     padding: "20px",
   },
+
   formContainer: {
     width: "100%",
     maxWidth: "600px",
-    backgroundColor: "#1e1e1e",
-    borderRadius: "12px",
-    padding: "30px",
-    border: "1px solid #333",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "6px",
+    padding: "32px",
+    border: "1px solid #D0D5DD",
   },
+
   title: {
     textAlign: "center" as const,
-    marginBottom: "30px",
-    color: "#bb86fc",
+    marginBottom: "32px",
+    color: "#003A8F",
     fontSize: "24px",
     fontWeight: "600",
   },
+
   form: {
     display: "flex",
     flexDirection: "column" as const,
     gap: "20px",
   },
+
   formGroup: {
     display: "flex",
     flexDirection: "column" as const,
-    gap: "8px",
+    gap: "6px",
   },
+
   label: {
     fontSize: "14px",
-    color: "#e0e0e0",
+    fontWeight: "500",
+    color: "#2A2A2A",
   },
+
   input: {
-    padding: "12px 16px",
-    borderRadius: "8px",
-    backgroundColor: "#2d2d2d",
-    border: "1px solid #444",
-    color: "#e0e0e0",
+    padding: "10px 14px",
+    borderRadius: "4px",
+    border: "1px solid #D0D5DD",
+    fontSize: "15px",
+    color: "#2A2A2A",
+    backgroundColor: "#FFFFFF",
   },
+
   sectionTitleContainer: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: "10px",
   },
+
   sectionTitle: {
-    color: "#bb86fc",
+    color: "#003A8F",
     fontSize: "18px",
     fontWeight: "600",
   },
+
   addButton: {
-    backgroundColor: "#bb86fc",
-    color: "#121212",
+    backgroundColor: "#0053B3",
+    color: "#FFFFFF",
     border: "none",
-    padding: "8px 16px",
-    borderRadius: "6px",
+    padding: "6px 14px",
+    borderRadius: "4px",
+    fontSize: "14px",
     cursor: "pointer",
   },
+
   dispoGroup: {
     display: "flex",
     gap: "10px",
     alignItems: "center",
   },
+
   dispoInput: {
     flex: 1,
-    padding: "10px",
-    borderRadius: "6px",
-    backgroundColor: "#2d2d2d",
-    border: "1px solid #444",
-    color: "#e0e0e0",
+    padding: "9px 12px",
+    borderRadius: "4px",
+    border: "1px solid #D0D5DD",
+    fontSize: "14px",
   },
+
   removeButton: {
-    backgroundColor: "#ff5252",
-    color: "white",
+    backgroundColor: "#C62828",
+    color: "#FFFFFF",
     border: "none",
-    width: "36px",
-    height: "36px",
-    borderRadius: "50%",
+    width: "32px",
+    height: "32px",
+    borderRadius: "4px",
+    fontSize: "18px",
     cursor: "pointer",
   },
+
   submitButton: {
-    padding: "14px",
-    backgroundColor: "#bb86fc",
+    marginTop: "10px",
+    padding: "12px",
+    backgroundColor: "#003A8F",
+    color: "#FFFFFF",
     border: "none",
-    borderRadius: "8px",
+    borderRadius: "4px",
+    fontSize: "16px",
     fontWeight: "600",
     cursor: "pointer",
   },
+
   disabledButton: {
     opacity: 0.6,
     cursor: "not-allowed",
   },
+
   successMessage: {
-    color: "#4caf50",
+    color: "#2E7D32",
     textAlign: "center" as const,
+    fontWeight: "500",
   },
+
   errorMessage: {
-    color: "#ff5252",
+    color: "#C62828",
     textAlign: "center" as const,
+    fontWeight: "500",
   },
 };
