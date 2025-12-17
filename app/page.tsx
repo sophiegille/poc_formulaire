@@ -12,6 +12,7 @@ export default function Formulaire() {
     telephone: "",
     adresse: "",
     commune: "",
+    commentaires: "", // <- nouveau champ
   });
 
   const [disponibilites, setDisponibilites] = useState([
@@ -21,7 +22,7 @@ export default function Formulaire() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -104,7 +105,7 @@ export default function Formulaire() {
               onChange={handleChange}
               required
               style={styles.input}
-              placeholder="Référence dossier"
+              placeholder="XXX-XXX-0123456789" // <- texte provisoire
             />
           </div>
 
@@ -188,6 +189,18 @@ export default function Formulaire() {
               required
               style={styles.input}
               placeholder="Votre commune"
+            />
+          </div>
+
+          {/* COMMENTAIRES */}
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Commentaires</label>
+            <textarea
+              name="commentaires"
+              value={formData.commentaires}
+              onChange={handleChange}
+              style={{ ...styles.input, height: "100px", resize: "vertical" }}
+              placeholder="Vos commentaires..."
             />
           </div>
 
