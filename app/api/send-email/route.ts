@@ -47,7 +47,10 @@ export async function POST(request: Request) {
     from: `"${formData.prenom} ${formData.nom}" <${process.env.EMAIL_USER}>`,
     replyTo: formData.email,
     to: process.env.EMAIL_DEST,
-    subject: "Nouvelle soumission de formulaire",
+
+    // ✅ OBJET DYNAMIQUE
+    subject: `Formulaire – Référence ${formData.reference}`,
+
     text: `
 Référence : ${formData.reference}
 
